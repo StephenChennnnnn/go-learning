@@ -1,6 +1,8 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 type User struct {
 	ID   uint64
@@ -42,6 +44,23 @@ func main() {
 	//}, func(context *gin.Context) {
 	//
 	//})
+
+	// V1 version API
+	v1Group := r.Group("/v1")
+	v1Group.GET("/users", func(c *gin.Context) {
+		c.String(200, "/v1/users")
+	})
+	v1Group.GET("/products", func(c *gin.Context) {
+		c.String(200, "/v1/products")
+	})
+	// V2 version API
+	v2Group := r.Group("/v2")
+	v2Group.GET("/users", func(c *gin.Context) {
+		c.String(200, "/v2/users")
+	})
+	v2Group.GET("/products", func(c *gin.Context) {
+		c.String(200, "/v2/products")
+	})
 
 	r.Run(":8080")
 

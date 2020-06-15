@@ -1,4 +1,4 @@
-module gin-rest
+module github.com/stephenchennnnnn/go-learning/gin-rest
 
 go 1.14
 
