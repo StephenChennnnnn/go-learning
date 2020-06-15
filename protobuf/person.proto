@@ -1,0 +1,9 @@
+syntax = "proto2";
+package example;
+option go_package = "./example";
+
+message Person {
+  required string Name = 1;
+  required int32 Age = 2;
+  required string From = 3;
+}
