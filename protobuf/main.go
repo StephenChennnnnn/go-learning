@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
+	"go-learning/protobuf/example"
 	"os"
-	"protobuf/example"
 )
 
 func main() {

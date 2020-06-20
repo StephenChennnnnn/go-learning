@@ -1,5 +1,0 @@
-module github.com/stephenchennnnnn/go-learning/gin-rest
-
-go 1.14
-
-require github.com/gin-gonic/gin v1.6.3

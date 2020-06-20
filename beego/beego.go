@@ -1,8 +1,8 @@
 package main
 
 import (
-	beego "github.com/astaxie"
-	"github.com/astaxie/logs"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 func main() {
