@@ -20,4 +20,8 @@ service OrderService {
   rpc GetOrderInfo(OrderRequest) returns (OrderInfo);
   // server stream mode
   rpc GetOrderInfos(OrderRequest) returns (stream OrderInfo) {};
+  // client stream mode
+  rpc AddOrderList(stream OrderRequest) returns (OrderInfo) {};
+  // cs stream mode
+  rpc GetOrderInfosCS(stream OrderRequest) returns (stream OrderInfo) {};
 }
