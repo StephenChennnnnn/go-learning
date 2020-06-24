@@ -2,18 +2,26 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/micro/go-micro/v2"
-	_ "github.com/micro/go-plugins/registry/consul/v2"
+	"github.com/micro/go-micro/v2/broker"
+	"github.com/micro/go-plugins/broker/kafka/v2"
+	"github.com/micro/go-plugins/registry/consul/v2"
 	"go-learning/go-micro/message"
 	"log"
+	"time"
 )
 
 func main() {
 	//创建一个新的服务对象实例
 	service := micro.NewService(
 		micro.Name("student_service"),
+		micro.Registry(consul.NewRegistry()),
+		micro.Broker(kafka.NewBroker()),
+		micro.RegisterTTL(10*time.Second),
+		micro.RegisterInterval(5*time.Second),
 	)
 
 	//服务初始化
@@ -21,6 +29,17 @@ func main() {
 
 	//注册
 	message.RegisterStudentServiceHandler(service.Server(), new(StudentServiceImpl))
+
+	pubSub := service.Server().Options().Broker
+	pubSub.Subscribe("student_service", func(event broker.Event) error {
+		var req *message.Student
+		if err := json.Unmarshal(event.Message().Body, &req); err != nil {
+			return err
+		}
+		fmt.Println("receive message: ", req)
+
+		return nil
+	})
 
 	//运行
 	if err := service.Run(); err != nil {
