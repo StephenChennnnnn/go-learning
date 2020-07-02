@@ -20,6 +20,7 @@ require (
 	google.golang.org/genproto v0.0.0-20200620020550-bd6e04640131 // indirect
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.24.0
+	gopkg.in/ini.v1 v1.51.0
 )
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0

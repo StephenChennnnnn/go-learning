@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"go-learning/grpc-ssl-token/message"
+	"go-learning/grpc/grpc-ssl-token/message"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/grpclog"

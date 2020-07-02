@@ -9,7 +9,7 @@ import (
 	"github.com/micro/go-micro/v2/broker"
 	"github.com/micro/go-plugins/broker/kafka/v2"
 	"github.com/micro/go-plugins/registry/consul/v2"
-	"go-learning/go-micro/message"
+	"go-learning/gin/go-micro/message"
 	"log"
 	"time"
 )

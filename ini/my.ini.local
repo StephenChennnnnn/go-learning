@@ -1,0 +1,13 @@
+app_mode = production
+
+[paths]
+data = /home/git/grafana
+
+[server]
+protocal       = http
+http_port      = 9999
+enforce_domain = true
+
+[path]
+data = 
+
