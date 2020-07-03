@@ -21,7 +21,7 @@ var (
 
 func init() {
 	var err error
-	Cfg, err = ini.Load("conf/app.ini")
+	Cfg, err = ini.Load("E:\\go\\src\\github.com\\go-learning\\gin\\gin-example\\conf\\app.ini")
 	if err != nil {
 		log.Fatalf("fail to parse 'conf/app.ini': %v", err)
 	}
@@ -47,5 +47,11 @@ func LoadServer() {
 }
 
 func LoadApp() {
+	sec, err := Cfg.GetSection("app")
+	if err != nil {
+		log.Fatalf("fail to get section 'app': %v", err)
+	}
 
+	JwtSecret = sec.Key("JWT_SECRET").MustString("\"!@)*#)!@U#@*!@!)\"")
+	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
 }
