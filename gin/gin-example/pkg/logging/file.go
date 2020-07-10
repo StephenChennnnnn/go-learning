@@ -44,6 +44,8 @@ func openLogFile(filePath string) *os.File {
 
 func mkDir() {
 	dir, _ := os.Getwd()
+	fmt.Println(dir + " cxy")
+	fmt.Println(getLogFilePath() + " ctr")
 	err := os.Mkdir(dir+"/"+getLogFilePath(), os.ModePerm)
 	if err != nil {
 		panic(err)

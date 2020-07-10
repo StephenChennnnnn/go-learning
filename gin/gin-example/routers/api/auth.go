@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-learning/gin/gin-example/models"
 	"go-learning/gin/gin-example/pkg/e"
+	"go-learning/gin/gin-example/pkg/logging"
 	"go-learning/gin/gin-example/pkg/util"
-	"log"
 	"net/http"
 )
 
@@ -38,7 +38,7 @@ func GetAuth(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Println(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 

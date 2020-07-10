@@ -21,7 +21,8 @@ var (
 
 func init() {
 	var err error
-	Cfg, err = ini.Load("E:\\go\\src\\github.com\\go-learning\\gin\\gin-example\\conf\\app.ini")
+	Cfg, err = ini.Load("/Users/chenxinyuan/go/src/github.com/stephenchen/go-learning/gin/gin-example/conf/app.ini")
+	//Cfg, err = ini.Load("E:\\go\\src\\github.com\\go-learning\\gin\\gin-example\\conf\\app.ini")
 	if err != nil {
 		log.Fatalf("fail to parse 'conf/app.ini': %v", err)
 	}
