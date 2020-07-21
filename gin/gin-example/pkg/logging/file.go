@@ -46,8 +46,11 @@ func mkDir() {
 	dir, _ := os.Getwd()
 	fmt.Println(dir + " cxy")
 	fmt.Println(getLogFilePath() + " ctr")
-	err := os.Mkdir(dir+"/"+getLogFilePath(), os.ModePerm)
-	if err != nil {
-		panic(err)
+	folderPath := dir + "/" + getLogFilePath()
+	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
+		err := os.MkdirAll(dir+"/"+getLogFilePath(), os.ModePerm)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
