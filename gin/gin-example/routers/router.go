@@ -2,18 +2,24 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+	_ "go-learning/gin/gin-example/docs"
 	"go-learning/gin/gin-example/middleware/jwt"
 	"go-learning/gin/gin-example/pkg/setting"
 	"go-learning/gin/gin-example/routers/api"
 	v1 "go-learning/gin/gin-example/routers/api/v1"
 )
 
+// InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
 	gin.SetMode(setting.RunMode)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.GET("/auth", api.GetAuth)
 
