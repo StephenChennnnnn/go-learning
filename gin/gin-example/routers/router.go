@@ -2,13 +2,13 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/stephenchen/go-learning/gin/gin-example/docs"
+	"github.com/stephenchen/go-learning/gin/gin-example/middleware/jwt"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/routers/api"
+	v1 "github.com/stephenchen/go-learning/gin/gin-example/routers/api/v1"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	_ "go-learning/gin/gin-example/docs"
-	"go-learning/gin/gin-example/middleware/jwt"
-	"go-learning/gin/gin-example/pkg/setting"
-	"go-learning/gin/gin-example/routers/api"
-	v1 "go-learning/gin/gin-example/routers/api/v1"
 )
 
 // InitRouter initialize routing information

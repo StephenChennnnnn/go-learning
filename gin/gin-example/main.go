@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/fvbock/endless"
-	"go-learning/gin/gin-example/pkg/setting"
-	"go-learning/gin/gin-example/routers"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/routers"
 	"log"
 	"syscall"
 )

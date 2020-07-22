@@ -3,12 +3,12 @@ package v1
 import (
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
+	"github.com/stephenchen/go-learning/gin/gin-example/models"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/e"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/logging"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/util"
 	"github.com/unknwon/com"
-	"go-learning/gin/gin-example/models"
-	"go-learning/gin/gin-example/pkg/e"
-	"go-learning/gin/gin-example/pkg/logging"
-	"go-learning/gin/gin-example/pkg/setting"
-	"go-learning/gin/gin-example/pkg/util"
 	"net/http"
 )
 

@@ -2,8 +2,8 @@ package jwt
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-learning/gin/gin-example/pkg/e"
-	"go-learning/gin/gin-example/pkg/util"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/e"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/util"
 	"net/http"
 	"time"
 )

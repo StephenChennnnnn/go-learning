@@ -2,7 +2,7 @@ package util
 
 import (
 	"github.com/dgrijalva/jwt-go"
-	"go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
 	"time"
 )
 

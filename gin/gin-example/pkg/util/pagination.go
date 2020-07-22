@@ -2,8 +2,8 @@ package util
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
 	"github.com/unknwon/com"
-	"go-learning/gin/gin-example/pkg/setting"
 )
 
 func GetPage(c *gin.Context) int {
