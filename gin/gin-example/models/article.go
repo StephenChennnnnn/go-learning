@@ -1,5 +1,7 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 type Article struct {
 	Model
 
@@ -14,26 +16,18 @@ type Article struct {
 	State      int    `json:"state"`
 }
 
-//func (article *Article) BeforeCreate(scope *gorm.Scope) error {
-//	scope.SetColumn("CreatedOn", time.Now().Unix())
-//
-//	return nil
-//}
-//
-//func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
-//	scope.SetColumn("ModifiedOn", time.Now().Unix())
-//
-//	return nil
-//}
-
-func ExistArticleByID(id int) bool {
+// ExistArticleByID checks if an article exists based on ID
+func ExistArticleByID(id int) (bool, error) {
 	var article Article
-	db.Select("id").Where("id = ?", id).First(&article)
+	err := db.Select("id").Where("id = ?", id).First(&article).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return false, err
+	}
 
 	if article.ID > 0 {
-		return true
+		return true, nil
 	}
-	return false
+	return false, nil
 }
 
 func GetArticleTotal(maps interface{}) (count int) {
@@ -76,6 +70,12 @@ func AddArticle(data map[string]interface{}) bool {
 
 func DeleteArticle(id int) bool {
 	db.Where("id = ?", id).Delete(Article{})
+
+	return true
+}
+
+func CleanAllArticle() bool {
+	db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Article{})
 
 	return true
 }
