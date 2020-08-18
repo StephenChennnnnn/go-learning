@@ -4,11 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/stephenchen/go-learning/gin/gin-example/docs"
 	"github.com/stephenchen/go-learning/gin/gin-example/middleware/jwt"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/export"
 	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/upload"
 	"github.com/stephenchen/go-learning/gin/gin-example/routers/api"
 	v1 "github.com/stephenchen/go-learning/gin/gin-example/routers/api/v1"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"net/http"
 )
 
 // InitRouter initialize routing information
@@ -19,7 +22,10 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.ServerSetting.RunMode)
 
-	r.GET("/auth", api.GetAuth)
+	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+
+	r.POST("/auth", api.GetAuth)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
@@ -34,6 +40,10 @@ func InitRouter() *gin.Engine {
 		apiv1.PUT("/tags/:id", v1.EditTag)
 		// 删除指定标签
 		apiv1.DELETE("/tags/:id", v1.DeleteTag)
+		//导出标签
+		r.POST("/tags/export", v1.ExportTag)
+		//导入标签
+		r.POST("/tags/import", v1.ImportTag)
 
 		//获取文章列表
 		apiv1.GET("/articles", v1.GetArticles)

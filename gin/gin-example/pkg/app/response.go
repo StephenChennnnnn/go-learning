@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/e"
 )
 
 type Gin struct {
@@ -15,7 +16,12 @@ type Response struct {
 }
 
 // Response setting gin.JSON
-func (g *Gin) Response(httpCode int, errCode int, data interface{}) {
-	return
+func (g *Gin) Response(httpCode, errCode int, data interface{}) {
+	g.C.JSON(httpCode, gin.H{
+		"code": errCode,
+		"msg":  e.GetMsg(errCode),
+		"data": data,
+	})
 
+	return
 }

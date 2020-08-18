@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/fvbock/endless"
 	"github.com/stephenchen/go-learning/gin/gin-example/models"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/gredis"
 	"github.com/stephenchen/go-learning/gin/gin-example/pkg/logging"
 	"github.com/stephenchen/go-learning/gin/gin-example/pkg/setting"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/util"
 	"github.com/stephenchen/go-learning/gin/gin-example/routers"
 	"log"
 	"syscall"
@@ -15,7 +17,8 @@ func init() {
 	setting.Setup()
 	models.Setup()
 	logging.Setup()
-
+	gredis.Setup()
+	util.Setup()
 }
 
 // @title Golang Gin API

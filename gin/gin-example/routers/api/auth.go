@@ -3,10 +3,10 @@ package api
 import (
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"github.com/stephenchen/go-learning/gin/gin-example/models"
+	"github.com/stephenchen/go-learning/gin/gin-example/pkg/app"
 	"github.com/stephenchen/go-learning/gin/gin-example/pkg/e"
-	"github.com/stephenchen/go-learning/gin/gin-example/pkg/logging"
 	"github.com/stephenchen/go-learning/gin/gin-example/pkg/util"
+	"github.com/stephenchen/go-learning/gin/gin-example/service/auth_service"
 	"net/http"
 )
 
@@ -16,42 +16,47 @@ type auth struct {
 }
 
 // @Summary Get Auth
-// @Produce json
-// @Param username query string true "username"
+// @Produce  json
+// @Param username query string true "userName"
 // @Param password query string true "password"
-// @Success 200 {object} gin.H
-// @Failure 500 {object} gin.H
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
 // @Router /auth [get]
 func GetAuth(c *gin.Context) {
-	username := c.Query("username")
-	password := c.Query("password")
-
+	appG := app.Gin{C: c}
 	valid := validation.Validation{}
-	a := auth{Username: username, Password: password}
 
-	data := make(map[string]interface{})
-	code := e.INVALID_PARAMS
-	if ok, _ := valid.Valid(&a); ok {
-		if isExist := models.CheckAuth(username, password); isExist {
-			token, err := util.GenerateToken(username, password)
-			if err != nil {
-				code = e.ERROR_AUTH_TOKEN
-			} else {
-				data["token"] = token
-				code = e.SUCCESS
-			}
-		} else {
-			code = e.ERROR_AUTH
-		}
-	} else {
-		for _, err := range valid.Errors {
-			logging.Info(err.Key, err.Message)
-		}
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	a := auth{Username: username, Password: password}
+	ok, _ := valid.Valid(&a)
+
+	if !ok {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"code": code,
-		"msg":  e.GetMsg(code),
-		"data": data,
+	authService := auth_service.Auth{Username: username, Password: password}
+	isExist, err := authService.Check()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_CHECK_TOKEN_FAIL, nil)
+		return
+	}
+
+	if !isExist {
+		appG.Response(http.StatusUnauthorized, e.ERROR_AUTH, nil)
+		return
+	}
+
+	token, err := util.GenerateToken(username, password)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
+		"token": token,
 	})
 }

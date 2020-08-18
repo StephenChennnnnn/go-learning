@@ -6,6 +6,7 @@ import (
 	"github.com/unknwon/com"
 )
 
+// GetPage get page parameters
 func GetPage(c *gin.Context) int {
 	result := 0
 	page, _ := com.StrTo(c.Query("page")).Int()
